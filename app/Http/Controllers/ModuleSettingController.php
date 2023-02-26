@@ -276,7 +276,7 @@ class ModuleSettingController extends Controller
         }
         
     }
-    public function getattributeStore($user){
+    public static function getattributeStore($user){
         $page = ModuleSetting::where('page',$user)->get();
         if(!$page->isEmpty()){
             $record = $page->toArray();
