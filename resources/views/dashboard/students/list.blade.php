@@ -45,6 +45,24 @@
                 <hr>
                 <div class="card custom-bdr">
                     <div class="card-body table-responsive">
+                        '<form class="form-inline">' 
+                                <div class="form-group mb-2 mr-3"> 
+                                    <label for="name" class="mr-2">Name:</label> 
+                                    <input type="text" name="name" id="name" class="form-control"> 
+                                    </div> 
+                                <div class="form-group mb-2 mr-3"> 
+                                    <label for="email" class="mr-2">Email:</label> 
+                                    <input type="text" name="email" id="email" class="form-control"> 
+                                    </div> 
+                                <div class="form-group mb-2 mr-3"> 
+                                    <label for="level" class="mr-2">Level:</label> 
+                                    <input type="text" name="level" id="level" class="form-control"> 
+                                    </div> 
+                                <div class="form-group mb-2 mr-3"> 
+                                    <label for="GPA" class="mr-2">GPA:</label> 
+                                    <input type="text" name="GPA" id="GPA" class="form-control"> 
+                                    </div> 
+                                </form>
                         <table id="datatable" class="table table-bordered">
                             <thead>
                                 <tr>
@@ -76,48 +94,108 @@
 @include('dashboard.layouts.footer')
 <script type="text/javascript">
     $(document).ready(function() {
-        var table = $('#datatable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('student.index') }}",
-            columns: [{
-                    data: 'check',
-                    name: 'check',
-                    orderable: false,
-                    searchable: false
-                },
+        // var table = $('#datatable').DataTable({
+        //     processing: true,
+        //     serverSide: true,
+        //     ajax: "{{ route('student.index') }}",
+        //     dom: 'Plfrtip',
+        //     columns: [{
+        //             data: 'check',
+        //             name: 'check',
+        //             orderable: false,
+        //             searchable: false
+        //         },
  
-                {
-                    data: 'id',
-                    name: 'id'
-                },
-                {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'email',
-                    name: 'email'
-                },
+        //         {
+        //             data: 'id',
+        //             name: 'id'
+        //         },
+        //         {
+        //             data: 'name',
+        //             name: 'name'
+        //         },
+        //         {
+        //             data: 'email',
+        //             name: 'email'
+        //         },
                 
-                {
-                    data: 'level',
-                    name: 'level',
+        //         {
+        //             data: 'level',
+        //             name: 'level',
        
-                },
-                {
-                    data: 'GPA',
-                    name: 'GPA',
+        //         },
+        //         {
+        //             data: 'GPA',
+        //             name: 'GPA',
        
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false
-                },
-            ]
+        //         },
+        //         {
+        //             data: 'action',
+        //             name: 'action',
+        //             orderable: false,
+        //             searchable: false
+        //         },
+        //     ]
+        // });
+            var table = $('#datatable').DataTable({
+    processing: true,
+    serverSide: true,
+   
+    ajax: "{{ route('student.index') }}",
+    dom: 
+        "",
+    columns: [
+        {
+            data: 'check',
+            name: 'check',
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: 'id',
+            name: 'id'
+        },
+        {
+            data: 'name',
+            name: 'name'
+        },
+        {
+            data: 'email',
+            name: 'email'
+        },
+        {
+            data: 'level',
+            name: 'level'
+        },
+        {
+            data: 'GPA',
+            name: 'GPA'
+        },
+        {
+            data: 'action',
+            name: 'action',
+            orderable: false,
+            searchable: false
+        },
+    ],
+    initComplete: function() {
+        $('#name').on('keyup change', function() {
+            table.column('name:name').search(this.value).draw();
         });
+        $('#email').on('keyup change', function() {
+            table.column('email:name').search(this.value).draw();
+        });
+        $('#level').on('keyup change', function() {
+            table.column('level:name').search(this.value).draw();
+        });
+        $('#GPA').on('keyup change', function() {
+            table.column('GPA:name').search(this.value).draw();
+        });
+    }
+});
+
+
+
 
         $('#checkalluser').on('click', function(e) {
             if ($(this).is(':checked', true)) {
